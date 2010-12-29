@@ -1,0 +1,33 @@
+{ "name": "protocol"
+, "version": "0.0.1"
+, "description": "Library allowing to add new protocols."
+, "homepage": "http://github.com/Gozala/jetpack-protocol/"
+, "keywords": ["protocol"]
+, "contributors":
+  [ "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)" ]
+, "repository":
+  { "type": "git"
+  , "url": "git://github.com/Gozala/jetpack-protocol.git"
+  }
+, "bugs": { "web": "http://github.com/Gozala/jetpack-protocol/issues/" }
+, "directories":
+  { "doc": "./docs"
+  , "lib": "./lib"
+  , "test": "./test"
+  }
+, "dependencies":
+  { "light-traits": ">=0.0.10"
+  , "addon-kit": ">=0.9.0"
+  , "api-utils": ">=0.9.0"
+  }
+, "main": "./lib/protocol.js"
+, "scripts": { "test": "node test/all.js" }
+, "engines":
+  { "addon-sdk": ">=0.9.0"
+  }
+, "licenses" :
+  [ { "type" : "MPL 1.1/LGPL 2.1/GPL 2.0"
+    , "url" : "http://www.mozilla.org/MPL/"
+    }
+  ]
+}
