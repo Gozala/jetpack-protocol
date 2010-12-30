@@ -8,12 +8,25 @@ Library allowing to add new protocols.
 
 ## Examples ##
 
+Register protocol handler for "about:jedi"
+
     require('protocol').register({
-      include: 'jedi',
+      about: 'jedi',
       onRequest: function(uri) {
         return 'data:text/html,<h1>Jedi is an awsome dude with a lightsaber</h1>'
       }
     })
+    // Navigate to 'about:jedi'
+
+Register protocol handler for "jedi:*"
+
+    require('protocol').register({
+      scheme: 'jedi',
+      onRequest: function(uri) {
+        return 'data:text/html,<h1>Jedi "' + uri.substr(this.scheme.length + 1) + '" is at your service!';
+      }
+    })
+    // navigate to 'jedi:yoda'
 
 ## Prior art ##
 
