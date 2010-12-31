@@ -32,5 +32,6 @@ Register protocol handler for "jedi:*"
 
  - [Adding a New Protocol to Mozilla](http://www.nexgenmedia.net/docs/protocol/)
  - [nsIProtocolHandler]
+ - [Extending the Chrome Protocol](http://kb.mozillazine.org/Dev_:_Extending_the_Chrome_Protocol)
 
 [nsIProtocolHandler]:https://developer.mozilla.org/en/nsIProtocolHandler
