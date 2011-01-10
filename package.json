@@ -1,5 +1,5 @@
 { "name": "protocol"
-, "version": "0.0.1"
+, "version": "0.0.2"
 , "description": "Library allowing to add new protocols."
 , "homepage": "http://github.com/Gozala/jetpack-protocol/"
 , "keywords": ["protocol"]
