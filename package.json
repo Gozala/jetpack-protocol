@@ -17,8 +17,7 @@
   , "test": "./test"
   }
 , "dependencies":
-  { "light-traits": ">=0.0.10"
-  , "addon-kit": ">=0.9.0"
+  { "addon-kit": ">=0.9.0"
   , "api-utils": ">=0.9.0"
   }
 , "main": "./lib/protocol.js"
