@@ -1,6 +1,6 @@
 { "name": "protocol"
-, "id": "jid0-ABaVeUJcNiinO4UuweUigrufdwY"
-, "version": "0.0.2"
+, "id": "protocol"
+, "version": "0.0.3"
 , "description": "Library allowing to add new protocols."
 , "homepage": "http://github.com/Gozala/jetpack-protocol/"
 , "keywords": ["protocol"]
