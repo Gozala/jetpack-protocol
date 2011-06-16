@@ -196,7 +196,7 @@ const TProtocolHandler = Trait.compose(
       // it means that handler just maps `originalURI`. In such case we set
       // owner of the channel to the same principal as `originalURI` has in
       // order to allow access to the other mapped resources.
-      if (response.originalURI !== response.uri) {
+      if (response.originalURI !== response.uri.spec) {
         let originalURI = IOService.newURI(response.originalURI, null, null)
         channel.originalURI = originalURI
         channel.owner = securityManager.getCodebasePrincipal(originalURI)
