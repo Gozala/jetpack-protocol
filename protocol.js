@@ -1,9 +1,9 @@
 'use strict'
 
 const { Cc, Ci, Cu, Cm } = require("chrome")
-  ,   { MatchPattern } = require('match-pattern')
-  ,   { Trait } = require("light-traits")
-  ,   xpcom = require("xpcom")
+  ,   { MatchPattern } = require('api-utils/match-pattern')
+  ,   { Trait } = require("api-utils/light-traits")
+  ,   xpcom = require("api-utils/xpcom")
 
   ,   { XPCOMUtils } = Cu.import("resource://gre/modules/XPCOMUtils.jsm")
 
