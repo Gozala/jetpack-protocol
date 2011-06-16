@@ -78,7 +78,7 @@ function request(handler, uri, baseURI, charset) {
 
   // If response contains `content` property it's not a simple redirect. In
   // this case we create channel from the given content.
-  if (response.content) {
+  if (response.content !== undefined && response.content !== null) {
     // Creating input stream out of the `response.content` and then creating
     // `channel` with that content stream.
     let stream = inputStream.createInstance(Ci.nsIStringInputStream)
@@ -183,7 +183,6 @@ const TProtocolHandler = Trait.compose(
       // it will be able to use it and then delete it.
       if (response.uri.scheme == this.scheme)
         (this.responses || (this.responses = {}))[response.uri.spec] = response
-
       return response.uri
     },
     newChannel: function newChannel(uri) {
@@ -215,4 +214,3 @@ const TProtocolHandler = Trait.compose(
 exports.Handler = function Handler(options) {
   return THandler.create(options)
 }
-
