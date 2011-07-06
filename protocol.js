@@ -39,7 +39,7 @@ const Response = Base.extend({
   }
 })
 
-exports.Handler = {
+exports.AbstractHandler = {
   newChannel: function newChannel(uri) {
     var channel, pipe, response, request
 
@@ -47,7 +47,7 @@ exports.Handler = {
     request = { uri: uri.spec }
     response = Response.new(request.uri, pipe.outputStream)
 
-    this.request(request, response)
+    this.onRequest(request, response)
 
     // If `uri` is modified on the response object then it's a redirect.
     // In this case we just create a channel from the URI to which request
@@ -81,7 +81,7 @@ exports.Handler = {
   }
 }
 
-exports.AboutModule = Component.extend(exports.Handler, {
+exports.AboutHandler = Component.extend(exports.AbstractHandler, {
   interfaces: [ Ci.nsIAboutModule ],
   get classDescription() {
     return 'Protocol handler for "about:' + this.scheme + '"'
@@ -94,7 +94,7 @@ exports.AboutModule = Component.extend(exports.Handler, {
   }
 })
 
-exports.ProtocolHandler = Component.extend(exports.Handler, {
+exports.ProtocolHandler = Component.extend(exports.AbstractHandler, {
   interfaces: [ Ci.nsIProtocolHandler ],
   get classDescription() {
     return 'Protocol handler for "' + this.scheme + ':*"'
@@ -115,22 +115,16 @@ exports.ProtocolHandler = Component.extend(exports.Handler, {
    * Property describe how to normalize an URL.
    * @see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIStandardURL#Constants
    */
-  type: 1
-})
-
-exports.URIProtocolHandler = exports.ProtocolHandler.extend({
+  type: 1,
   newURI: function newURI(relative, charset, base) {
-    if (this.resolve) {
+    if (this.onResolve) {
       var uri = SimpleURI()
-      uri.spec = this.resolve(relative, base && base.spec, charset)
+      uri.spec = this.onResolve(relative, base && base.spec, charset)
       return uri
     }
-    return exports.URLProtocolHandler.newURI.call(this, relative, charset, base)
-  }
-})
-
-exports.URLProtocolHandler = exports.ProtocolHandler.extend({
-  newURI: function newURL(relative, charset, base) {
+    return this.newURL(relative, charset, base)
+  },
+  newURL: function newURL(relative, charset, base) {
     var url = StandardURL(this.type, this.defaultPort, relative, charset, base)
     url.QueryInterface(Ci.nsIURL)
     return url
