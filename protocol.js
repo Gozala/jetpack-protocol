@@ -70,13 +70,15 @@ exports.AbstractHandler = {
       // defaults that indicate that they are unknown.
       channel.contentLength = response.contentLength
       channel.contentType = response.contentType
-      // If `principalURI` has been modified this means that owner corresponding
-      // for this channel is different and we need to inherit it's privileges.
-      // This is handy, for custom URI that just proxy to a content of the
-      // different URIs.
-      if (response.principalURI !== request.uri)
-        channel.owner = Principal(URI(response.principalURI, null, null))
     }
+
+    // If `principalURI` has been modified this means that owner corresponding
+    // for this channel is different and we need to inherit it's privileges.
+    // This is handy, for custom URI that just proxy to a content of the
+    // different URIs.
+    if (response.principalURI !== request.uri)
+      channel.owner = Principal(URI(response.principalURI, null, null))
+
     return channel
   }
 }
