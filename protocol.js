@@ -110,9 +110,9 @@ exports.ProtocolHandler = Component.extend(exports.AbstractHandler, {
   defaultPort: -1,
   // For more information on what these flags mean,
   // see caps/src/nsScriptSecurityManager.cpp.
-  protocolFlags:  Ci.nsIProtocolHandler.URI_IS_UI_RESOURCE |
-                  Ci.nsIProtocolHandler.URI_STD |
-                  Ci.nsIProtocolHandler.URI_DANGEROUS_TO_LOAD,
+  protocolFlags: Ci.nsIProtocolHandler.URI_NORELATIVE
+               | Ci.nsIProtocolHandler.URI_IS_UI_RESOURCE
+               | Ci.nsIProtocolHandler.URI_DANGEROUS_TO_LOAD,
   /**
    * Property describe how to normalize an URL.
    * @see https://developer.mozilla.org/en/XPCOM_Interface_Reference/nsIStandardURL#Constants
