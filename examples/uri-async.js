@@ -8,7 +8,7 @@
 const protocol = require('../index')
 const setTimeout = require('timers').setTimeout
 
-const handler = protocol.protocol('privileges', {
+exports.handler = protocol.protocol('async', {
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
     // Write 
@@ -21,5 +21,7 @@ const handler = protocol.protocol('privileges', {
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+// exports.handler.unregister() // stop listening
+
+require('tabs').open('async:')

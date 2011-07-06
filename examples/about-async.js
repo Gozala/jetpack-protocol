@@ -8,18 +8,19 @@
 const protocol = require('../index')
 const setTimeout = require('timers').setTimeout
 
-const handler = protocol.protocol('simple', {
+exports.handler = protocol.about('async', {
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
-    // Write 
-    response.write('Hello ')
+    response.contentType = "text/html"
+    // Delay just for fun!
     setTimeout(function() {
-      // Write and end!
-      response.end('World !')
-    }, 1000)
+      console.log('! Writing a respones')
+      response.end('<h1>Jedi is an awsome dude with a lightsaber!!</h1>')
+    })
     console.log('<<<', JSON.stringify(response, '', '  '))
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+//exports.handler.unregister()    // stop listening
+require('tabs').open('about:async')

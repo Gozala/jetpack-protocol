@@ -6,7 +6,6 @@
 'use strict';
 
 const protocol = require('../index')
-const setTimeout = require('timers').setTimeout
 
 // var self = require('self') // Simulator
 var self = new function Self() {
@@ -18,7 +17,7 @@ var self = new function Self() {
   }
 }
 
-const handler = protocol.protocol('content', {
+exports.handler = protocol.protocol('content', {
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
     // redirect to local content
@@ -27,7 +26,7 @@ const handler = protocol.protocol('content', {
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+// exports.handler.unregister() // stop listening
 
-// visit content:///about.html
+require('tabs').open('content:///about.html')

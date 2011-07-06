@@ -11,5 +11,6 @@ try {
   alert("hold on a sec!");
 } catch(e) {
   alert(e.message)
+  throw e
 }
 

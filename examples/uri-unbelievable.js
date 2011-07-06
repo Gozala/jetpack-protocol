@@ -7,15 +7,16 @@
 
 const protocol = require('../index')
 
+// Directory of this module.
 var root = module.id.substr(0, module.id.lastIndexOf('/') + 1)
+
+// Ok, this is just insane, but gives you perspective!
 var SEPARATOR = '|'
-const handler = protocol.protocol('jedi', {
+exports.handler = protocol.protocol('jedi', {
   isAbsolute: function(uri) {
     return 0 === uri.indexOf('jedi:')
   },
   onResolve: function(relative, base) {
-    console.log('??', relative, base)
-    if (base === 'jedi:') base = 'jedi:data|base.html'
     var path, paths, last
     if (this.isAbsolute(relative)) return relative
     paths = relative.split(SEPARATOR)
@@ -31,20 +32,16 @@ const handler = protocol.protocol('jedi', {
       }
     }
     if (base[base.length - 1].substr(-1) === '.') base.push('')
-    console.log('!!', base.join(SEPARATOR))
     return base.join(SEPARATOR)
   },
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
-    // Special case just `jedi:` uri
-    if (request.uri === 'jedi:') response.uri = root + 'data/about.html'
-    else response.uri = root + request.uri.replace('jedi:', '').replace(SEPARATOR, '/')
-    response.principalURI = response.uri
+    response.uri = root + request.uri.replace('jedi:', '').replace(SEPARATOR, '/')
     console.log('<<<', JSON.stringify(response, '', '  '))
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+// exports.handler.unregister() // stop listening
 
-// goto: jedi:data|about.html
+require('tabs').open('jedi:data|about.html')

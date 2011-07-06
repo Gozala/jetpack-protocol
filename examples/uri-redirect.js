@@ -6,9 +6,8 @@
 'use strict';
 
 const protocol = require('../index')
-const setTimeout = require('timers').setTimeout
 
-const handler = protocol.protocol('redirect', {
+exports.handler = protocol.protocol('redirect', {
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
     // redirect
@@ -17,5 +16,6 @@ const handler = protocol.protocol('redirect', {
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+// exports.handler.unregister() // stop listening
+require('tabs').open('redirect:')

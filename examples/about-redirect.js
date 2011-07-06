@@ -6,9 +6,8 @@
 'use strict';
 
 const protocol = require('../index')
-const setTimeout = require('timers').setTimeout
 
-const handler = protocol.about('downloads', {
+exports.handler = protocol.about('downloads', {
   onRequest: function(request, response) {
     console.log('>>>', JSON.stringify(request, '', '  '))
     // Just redirect to something else.
@@ -17,5 +16,7 @@ const handler = protocol.about('downloads', {
   }
 })
 
-handler.register()      // start listening
-// handler.unregister() // stop listening
+exports.handler.register()      // start listening
+// exports.handler.unregister() // stop listening
+
+require('tabs').open('about:downloads')
