@@ -8,10 +8,10 @@
 const { Cc, Ci, components: { Constructor: CC } } = require('chrome')
 const { Component } = require('./xpcom')
 const { Base } = require('./selfish')
+const { CustomURL } = require('./uri')
 
 const StandardURL = CC('@mozilla.org/network/standard-url;1',
                        'nsIStandardURL', 'init')
-const SimpleURI = CC('@mozilla.org/network/simple-uri;1', 'nsIURI')
 const Pipe = CC('@mozilla.org/pipe;1', 'nsIPipe', 'init')
 const Channel = CC('@mozilla.org/network/input-stream-channel;1',
                    'nsIInputStreamChannel')
@@ -119,12 +119,9 @@ exports.ProtocolHandler = Component.extend(exports.AbstractHandler, {
    */
   type: 1,
   newURI: function newURI(relative, charset, base) {
-    if (this.onResolve) {
-      var uri = SimpleURI()
-      uri.spec = this.onResolve(relative, base && base.spec, charset)
-      return uri
-    }
-    return this.newURL(relative, charset, base)
+    return this.onResolve ?
+           CustomURL.new(this.onResolve(relative, base && base.spec, charset)) :
+           this.newURL(relative, charset, base)
   },
   newURL: function newURL(relative, charset, base) {
     var url = StandardURL(this.type, this.defaultPort, relative, charset, base)
