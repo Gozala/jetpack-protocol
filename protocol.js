@@ -5,7 +5,7 @@
 
 'use strict';
 
-const { Cc, Ci, components: { Constructor: CC } } = require('chrome')
+const { Cc, Ci, CC } = require('chrome')
 const { Component } = require('./xpcom')
 const { Base } = require('./selfish')
 const { CustomURL } = require('./uri')
@@ -18,7 +18,8 @@ const Channel = CC('@mozilla.org/network/input-stream-channel;1',
 const SecurityManager = CC('@mozilla.org/scriptsecuritymanager;1',
                      'nsIScriptSecurityManager')()
 const Principal = SecurityManager.getCodebasePrincipal.bind(SecurityManager)
-const IOService = CC('@mozilla.org/network/io-service;1', 'nsIIOService')()
+const IOService = Cc['@mozilla.org/network/io-service;1'].
+                  getService(Ci.nsIIOService)
 const URI = IOService.newURI.bind(IOService)
 const URIChannel = IOService.newChannel.bind(IOService)
 
@@ -119,9 +120,8 @@ exports.ProtocolHandler = Component.extend(exports.AbstractHandler, {
    */
   type: 1,
   newURI: function newURI(relative, charset, base) {
-    return this.onResolve ?
-           CustomURL.new(this.onResolve(relative, base && base.spec, charset)) :
-           this.newURL(relative, charset, base)
+    return !this.onResolve ? this.newURL(relative, charset, base)
+           : CustomURL.new(this.onResolve(relative, base && base.spec, charset))
   },
   newURL: function newURL(relative, charset, base) {
     var url = StandardURL(this.type, this.defaultPort, relative, charset, base)
