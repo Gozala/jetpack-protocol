@@ -17,7 +17,8 @@ const Channel = CC('@mozilla.org/network/input-stream-channel;1',
                    'nsIInputStreamChannel')
 const SecurityManager = CC('@mozilla.org/scriptsecuritymanager;1',
                      'nsIScriptSecurityManager')()
-const Principal = SecurityManager.getCodebasePrincipal.bind(SecurityManager)
+const Principal = SecurityManager.getSimpleCodebasePrincipal ? SecurityManager.getSimpleCodebasePrincipal.bind(SecurityManager) :
+                                                               SecurityManager.getCodebasePrincipal.bind(SecurityManager);
 const IOService = Cc['@mozilla.org/network/io-service;1'].
                   getService(Ci.nsIIOService)
 const URI = IOService.newURI.bind(IOService)
