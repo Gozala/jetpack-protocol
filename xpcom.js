@@ -7,11 +7,11 @@
 
 'use strict';
 
-const { Cc, Ci, Cr, Cm, components: { Constructor: CC } } = require('chrome')
+const { Cc, Ci, Cr, Cm } = require('chrome')
 const { Base } = require('./selfish')
 
-const { generateUUID } = CC('@mozilla.org/uuid-generator;1',
-                            'nsIUUIDGenerator')()
+const { generateUUID } = Cc["@mozilla.org/uuid-generator;1"].
+                         getService(Ci.nsIUUIDGenerator);
 const { registerFactory, unregisterFactory } =
       Cm.QueryInterface(Ci.nsIComponentRegistrar)
 
